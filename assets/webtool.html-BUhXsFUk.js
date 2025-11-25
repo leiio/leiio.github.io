@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-1be0f970","path":"/its/web/webtool.html","title":"前端库","lang":"zh-CN","frontmatter":{"title":"前端库","icon":"css","feed":false,"seo":false,"head":[]},"headers":[],"git":{},"readingTime":{"minutes":1.5,"words":450},"filePathRelative":"its/web/webtool.md","copyright":{"author":"Lei.io"}}');export{e as data};

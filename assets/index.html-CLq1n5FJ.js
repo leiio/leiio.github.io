@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-879ab3a2","path":"/its/DigitalTwin/","title":"Digital Twin","lang":"zh-CN","frontmatter":{"title":"Digital Twin","article":false,"feed":false,"sitemap":false,"seo":false,"head":[]},"headers":[],"git":{},"readingTime":{"minutes":0,"words":1},"filePathRelative":null,"copyright":{"author":"Lei.io"}}');export{e as data};

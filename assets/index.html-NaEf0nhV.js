@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-55a16e1f","path":"/its/other/","title":"Other","lang":"zh-CN","frontmatter":{"title":"Other","article":false,"feed":false,"sitemap":false,"seo":false,"head":[]},"headers":[],"git":{},"readingTime":{"minutes":0,"words":1},"filePathRelative":null,"copyright":{"author":"Lei.io"}}');export{e as data};

@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-29128520","path":"/its/DigitalTwin/Cesuim/%E8%BF%9B%E9%98%B6/high1.html","title":"gaojie","lang":"zh-CN","frontmatter":{"title":"gaojie","feed":false,"seo":false,"head":[]},"headers":[],"git":{},"readingTime":{"minutes":0.01,"words":2},"filePathRelative":"its/DigitalTwin/Cesuim/进阶/high1.md","copyright":{"author":"Lei.io"}}');export{e as data};

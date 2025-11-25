@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-bf56fd82","path":"/its/DigitalTwin/Cesuim/%E5%9F%BA%E7%A1%80/","title":"基础","lang":"zh-CN","frontmatter":{"title":"基础","article":false,"feed":false,"sitemap":false,"seo":false,"head":[]},"headers":[],"git":{},"readingTime":{"minutes":0,"words":1},"filePathRelative":null,"copyright":{"author":"Lei.io"}}');export{e as data};

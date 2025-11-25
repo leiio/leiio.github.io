@@ -1,0 +1,145 @@
+import{_ as r}from"./plugin-vue_export-helper-DlAUqK2U.js";import{r as o,o as c,c as p,b as n,a as s,w as l,d as e,f as i}from"./app-BGG14fOW.js";const d={},u=n("h1",{id:"linux网络防火墙",tabindex:"-1"},[n("a",{class:"header-anchor",href:"#linux网络防火墙","aria-hidden":"true"},"#"),e(" Linux网络防火墙")],-1),m={class:"table-of-contents"},v=n("h2",{id:"flag",tabindex:"-1"},[n("a",{class:"header-anchor",href:"#flag","aria-hidden":"true"},"#"),e(" Flag")],-1),b=i("<li><code>nethogs</code>: 按进程查看流量占用</li><li><code>ethtool</code>: 诊断工具</li><li><code>tcpdump</code>: 抓包工具</li><li>监控总体带宽使用：<code>nload</code>、<code>bmon</code>、<code>slurm</code>、<code>bwm-ng</code>、<code>cbm</code>、<code>speedometer</code>、<code>netload</code></li><li>监控总体带宽使用（批量式输出）：<code>vnstat</code>、<code>ifstat</code>、<code>dstat</code>、<code>collectl</code></li><li>每个套接字连接的带宽使用：<code>iftop</code>、<code>iptraf</code>、<code>tcptrack</code>、<code>pktstat</code>、<code>netwatch</code>、<code>trafshow</code>、<code>jnettop</code></li><li><code>ntopng</code></li><li>perf、sar、ksar、mpstat、uptime、vmstat、pidstat、time、cpustat、munin、glances、atop、nmon、pcp-gui、nfsstat、netstat、iostat</li>",8),h={href:"https://github.com/htop-dev/htop",target:"_blank",rel:"noopener noreferrer"},k={href:"https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet",target:"_blank",rel:"noopener noreferrer"},f={href:"https://github.com/aristocratos",target:"_blank",rel:"noopener noreferrer"},g=i(`<h2 id="查看网络" tabindex="-1"><a class="header-anchor" href="#查看网络" aria-hidden="true">#</a> 查看网络</h2><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token comment"># 查询系统中缓存的ARP表，ARP表用来维护IP地址与MAC地址的对应关系</span>
+arp <span class="token parameter variable">-an</span>
+<span class="token comment"># </span>
+<span class="token function">ip</span> a
+<span class="token function">ifconfig</span>
+
+<span class="token comment"># 输出当前的ESTABLISHED和TIME_WAIT数</span>
+<span class="token function">netstat</span> <span class="token parameter variable">-n</span> <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">&#39;/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}&#39;</span>
+<span class="token function">netstat</span> <span class="token parameter variable">-ant</span> <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">&#39;
+    {++s[$NF]} END {for(k in s) print k,s[k]}
+&#39;</span>
+ss <span class="token parameter variable">-ant</span> <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">&#39;
+    {++s[$1]} END {for(k in s) print k,s[k]}
+&#39;</span>
+
+<span class="token comment"># 详情</span>
+<span class="token function">netstat</span> <span class="token parameter variable">-antp</span>
+
+<span class="token comment"># 打印所有进程及其线程</span>
+pstree <span class="token parameter variable">-p</span>
+
+<span class="token comment"># 打印某个进程的线程数</span>
+pstree <span class="token parameter variable">-p</span> <span class="token punctuation">{</span>pid<span class="token punctuation">}</span> <span class="token operator">|</span> <span class="token function">wc</span> <span class="token parameter variable">-l</span>
+
+<span class="token comment"># 打印当前地址IP链接情况</span>
+<span class="token function">netstat</span> <span class="token parameter variable">-antp</span> <span class="token operator">|</span><span class="token function">grep</span> <span class="token string">&quot;ESTABLISHED&quot;</span> <span class="token operator">|</span><span class="token function">awk</span> <span class="token string">&#39;{print $5}&#39;</span><span class="token operator">|</span><span class="token function">awk</span> <span class="token parameter variable">-F</span> <span class="token builtin class-name">:</span> <span class="token string">&#39;{print $4}&#39;</span><span class="token operator">|</span><span class="token function">sort</span> <span class="token operator">|</span><span class="token function">uniq</span> <span class="token parameter variable">-c</span>
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="iptables" tabindex="-1"><a class="header-anchor" href="#iptables" aria-hidden="true">#</a> iptables</h2>`,3),_={href:"https://www.netfilter.org",target:"_blank",rel:"noopener noreferrer"},w=i(`<blockquote><p>iptables是Linux从2.4.x版本内核开始，系统自带的防火墙。随着Linux内核的不断更新，Linux的防火墙在iptables基础上泛生出 UFW和Firewalld，并且在一些发行版中已经替代iptables。</p></blockquote><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token comment">#永久关闭防火墙</span>
+<span class="token function">chkconfig</span> iptables off
+<span class="token comment"># 永久关闭后启用</span>
+<span class="token function">chkconfig</span> iptables on
+
+<span class="token comment"># 查看防火墙规则</span>
+iptables <span class="token parameter variable">-L</span>
+<span class="token comment"># 查出所有的规则信息</span>
+iptables <span class="token parameter variable">-nvl</span>
+iptables <span class="token parameter variable">-L</span> <span class="token parameter variable">-n</span> --line-number
+
+<span class="token comment"># 清空已存在的规则</span>
+iptables <span class="token parameter variable">-F</span>
+iptables <span class="token parameter variable">--flush</span>
+
+
+<span class="token comment"># sudo iptables -I INPUT -p tcp --dport [端口号] -j ACCEPT</span>
+<span class="token comment"># --dport 目标端口，数据从外部进入服务器</span>
+<span class="token comment"># --sport 数据源端口，数据从服务器出去</span>
+<span class="token function">sudo</span> iptables <span class="token parameter variable">-I</span> INPUT <span class="token parameter variable">-p</span> tcp <span class="token parameter variable">--dport</span> <span class="token number">3306</span> <span class="token parameter variable">-j</span> ACCEPT
+
+<span class="token comment"># 保存iptables设置规则</span>
+iptables-save
+
+
+<span class="token comment"># 安装iptables-persistent工具，使端口配置持久化</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> iptables-persistent
+
+<span class="token comment"># 端口配置永久生效 </span>
+<span class="token function">sudo</span> netfilter-persistent save
+<span class="token function">sudo</span> netfilter-persistent reload
+
+<span class="token comment"># 生成的规则将被存储在以下文件中:</span>
+<span class="token comment"># /etc/iptables/rules.v4</span>
+<span class="token comment"># /etc/iptables/rules.v6</span>
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="ufw" tabindex="-1"><a class="header-anchor" href="#ufw" aria-hidden="true">#</a> UFW</h2><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token comment"># 安装</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> ufw
+<span class="token comment"># 检查 UFW 的状态</span>
+<span class="token function">sudo</span> ufw status verbose
+
+<span class="token comment"># 打开防火墙</span>
+ufw <span class="token builtin class-name">enable</span>
+<span class="token comment"># 关闭防火墙</span>
+ufw disable
+<span class="token comment">#重启防火墙</span>
+ufw reload
+<span class="token comment"># 查看已经定义的ufw规则</span>
+ufw status
+<span class="token comment"># 外来访问默认允许</span>
+ufw default allow
+<span class="token comment"># 外来访问默认拒绝</span>
+ufw default deny
+<span class="token comment"># 允许访问20端口，20后可跟/tcp或/udp，表示tcp或udp封包。</span>
+ufw allow <span class="token number">20</span>
+<span class="token comment"># 拒绝访问20端口，20后可跟/tcp或/udp，表示tcp或udp封包。</span>
+ufw deny <span class="token number">20</span>
+<span class="token comment"># 允许自192.168.0.0/24的tcp封包访问本机的22端口。</span>
+<span class="token function">sudo</span> ufw allow proto tcp from <span class="token number">192.168</span>.0.0/24 to any port <span class="token number">22</span>
+<span class="token comment"># 删除以前定义的&quot;允许访问20端口&quot;的规则</span>
+ufw delete allow <span class="token number">20</span>
+<span class="token comment"># 删除以前定义的&quot;拒绝访问20端口&quot;的规则</span>
+ufw delete deny <span class="token number">20</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="firewalld" tabindex="-1"><a class="header-anchor" href="#firewalld" aria-hidden="true">#</a> firewalld</h2><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token comment"># 查看firewalld状态，发现当前是dead状态，即防火墙未开启。</span>
+systemctl status firewalld
+<span class="token comment"># 开启防火墙，没有任何提示即开启成功。</span>
+systemctl start firewalld
+<span class="token comment"># 查看已开放的端口(默认不开放任何端口)</span>
+firewall-cmd --list-ports
+<span class="token comment"># 重启防火墙</span>
+firewall-cmd <span class="token parameter variable">--reload</span>
+<span class="token comment"># 停止防火墙</span>
+systemctl stop firewalld.service
+<span class="token comment"># 禁止防火墙开机启动</span>
+systemctl disable firewalld.service
+<span class="token comment"># 删除端口</span>
+firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span> public --remove-port<span class="token operator">=</span><span class="token number">80</span>/tcp <span class="token parameter variable">--permanent</span>
+
+<span class="token comment"># 开启80端口</span>
+firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span>public --add-port<span class="token operator">=</span><span class="token number">80</span>/tcp <span class="token parameter variable">--permanent</span>
+<span class="token comment"># 开启8080-8089的IP端</span>
+firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span>public --add-port<span class="token operator">=</span><span class="token number">8080</span>-8089/tcp <span class="token parameter variable">--permanent</span>
+<span class="token comment"># 开启3306端口</span>
+firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span>public --add-port<span class="token operator">=</span><span class="token number">3306</span>/tcp <span class="token parameter variable">--permanent</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul><li><code>--zone</code> 作用域</li><li><code>--add-port=80/tcp</code> 添加端口，格式为：端口/通讯协议</li><li><code>--permanent</code> 永久生效，没有此参数重启后失效</li></ul><p><strong>配置<code>firewalld-cmd</code></strong></p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token comment"># 查看版本</span>
+firewall-cmd <span class="token parameter variable">--version</span>
+<span class="token comment"># 查看帮助</span>
+firewall-cmd <span class="token parameter variable">--help</span>
+<span class="token comment"># 显示状态</span>
+firewall-cmd <span class="token parameter variable">--state</span>
+<span class="token comment"># 查看所有打开的端口</span>
+firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span>public --list-ports
+<span class="token comment"># 更新防火墙规则</span>
+firewall-cmd <span class="token parameter variable">--reload</span>
+<span class="token comment"># 查看区域信息</span>
+firewall-cmd --get-active-zones
+<span class="token comment"># 查看指定接口所属区域</span>
+firewall-cmd --get-zone-of-interface<span class="token operator">=</span>eth0
+<span class="token comment"># 拒绝所有包</span>
+firewall-cmd --panic-on
+<span class="token comment"># 取消拒绝状态</span>
+firewall-cmd --panic-off
+<span class="token comment"># 查看是否拒绝</span>
+firewall-cmd --query-panic
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="路由跟踪" tabindex="-1"><a class="header-anchor" href="#路由跟踪" aria-hidden="true">#</a> 路由跟踪</h2>`,10),x={href:"https://github.com/zu1k/nali",target:"_blank",rel:"noopener noreferrer"},P={href:"https://github.com/pwnesia/dnstake",target:"_blank",rel:"noopener noreferrer"},z={href:"https://github.com/zartbot/ztrace",target:"_blank",rel:"noopener noreferrer"},I=n("p",null,[n("strong",null,[n("code",null,"ping"),e("、"),n("code",null,"tcptraceroute"),e("、"),n("code",null,"traceroute"),e("、"),n("code",null,"mtr")])],-1),T={href:"https://www.cnblogs.com/xzkzzz/p/7413177.html",target:"_blank",rel:"noopener noreferrer"},q={href:"https://www.jianshu.com/p/802010d54849",target:"_blank",rel:"noopener noreferrer"},y={href:"https://cloud.tencent.com/developer/article/1332118",target:"_blank",rel:"noopener noreferrer"},C={href:"http://winmtr.net/download-winmtr",target:"_blank",rel:"noopener noreferrer"},U={href:"https://www.cnblogs.com/dalianpai/p/12505678.html",target:"_blank",rel:"noopener noreferrer"},E={href:"http://www.dest-unreach.org/socat",target:"_blank",rel:"noopener noreferrer"},L={href:"https://github.com/vi/websocat",target:"_blank",rel:"noopener noreferrer"},j=n("blockquote",null,[n("p",null,"在Linux中有一个更好的网络连通性判断工具，它可以结合ping | nslookup | tracert 来判断网络的相关特性，这个命令就是mtr。")],-1),M=n("blockquote",null,[n("p",null,"注意：MTR使用的raw sockets是绕过TCP/IP协议，需要ROOT权限来执行，因此如果以普通用户身份来执行mtr会出错， 提示“mtr: unable to get raw sockets”")],-1),N={href:"http://www.vdberg.org/~richard/tcpping.html",target:"_blank",rel:"noopener noreferrer"},D={href:"https://github.com/deajan/tcpping",target:"_blank",rel:"noopener noreferrer"},S=n("blockquote",null,[n("p",null,[n("code",null,"tcpping"),e("脚本依赖"),n("code",null,"tcptraceroute"),e(" 组件，所以必须先安装"),n("code",null,"yum install tcptraceroute")])],-1),F={href:"https://elifulkerson.com/projects/",target:"_blank",rel:"noopener noreferrer"},R=n("blockquote",null,[n("p",null,[e("注意"),n("code",null,"tcpping"),e("与"),n("code",null,"tcping"),e(" 是不同的两款工具")])],-1),A={href:"https://docs.microsoft.com/zh-cn/sysinternals/downloads/psping",target:"_blank",rel:"noopener noreferrer"},V={href:"https://code.google.com/archive/p/paping/downloads",target:"_blank",rel:"noopener noreferrer"},W=i("<blockquote><p><code>PsPing</code> 是微软 <code>PSTools</code> 工具套件中的其中一个命令。除了 <code>ICMP</code> ping 测试，主要用来测试 TCP 端口的连通性， 还可以测试 <code>TCP/UDP</code> 网络时延和带宽。不过， <code>PsPing</code> 只能在 Windows 中运行。Linux 可以使用 <code>PaPing</code> （跨平台的开源工具）。</p></blockquote>",1),B={href:"https://github.com/antirez/hping",target:"_blank",rel:"noopener noreferrer"},O=n("p",null,[n("strong",null,"常用网站")],-1),$={href:"http://ipcheck.need.sh",target:"_blank",rel:"noopener noreferrer"},H={href:"https://torch.njs.app",target:"_blank",rel:"noopener noreferrer"},K={href:"http://ping.pe",target:"_blank",rel:"noopener noreferrer"},G={href:"https://www.yougetsignal.com/tools/open-ports",target:"_blank",rel:"noopener noreferrer"},J={href:"http://tool.chinaz.com/port",target:"_blank",rel:"noopener noreferrer"},Q={href:"https://www.websitepulse.com/tools/china-firewall-test",target:"_blank",rel:"noopener noreferrer"},X={href:"https://www.vps234.com/ipchecker",target:"_blank",rel:"noopener noreferrer"},Y={href:"https://tools.ipip.net/traceroute.php",target:"_blank",rel:"noopener noreferrer"},Z={href:"https://ip2cidr.com",target:"_blank",rel:"noopener noreferrer"},nn={href:"http://apps.neu.edu.cn/netaggr",target:"_blank",rel:"noopener noreferrer"},en={href:"https://www.sioe.cn/xinqing/CIDR.php",target:"_blank",rel:"noopener noreferrer"},sn={href:"https://zh.rakko.tools/tools/27",target:"_blank",rel:"noopener noreferrer"},an={href:"http://ip.chacuo.net/ipconvert",target:"_blank",rel:"noopener noreferrer"},tn={href:"https://github.com/3th1nk/cidr",target:"_blank",rel:"noopener noreferrer"},ln={href:"https://www.oldking.net",target:"_blank",rel:"noopener noreferrer"},on=i(`<p><strong>tracert</strong></p><blockquote><p><code>Tracert</code> 列出分组经过的路由节点，以及它在IP 网络中每一跳的延迟（这里的延迟是指：分组从信息源发送到目的地所需的时间， 延迟也分为许多的种类——传播延迟、传输延迟、处理延迟、排队延迟等，是大多数网站性能的瓶颈之一）.</p></blockquote><div class="language-batch line-numbers-mode" data-ext="batch"><pre class="language-batch"><code><span class="token command"><span class="token keyword">tracert</span> [<span class="token parameter attr-name">-d</span>] [<span class="token parameter attr-name">-h</span> maximum_hops] [<span class="token parameter attr-name">-j</span> host-list] [<span class="token parameter attr-name">-w</span> timeout] [<span class="token parameter attr-name">-R</span>] [<span class="token parameter attr-name">-S</span> srcaddr] [<span class="token number">-4</span>] [<span class="token number">-6</span>] target_name</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p><strong>选项</strong></p><ul><li><code>-d</code> 指定不将 IP 地址解析到主机名称。</li><li><code>-h maximum_hops</code> 指定跃点数以跟踪到称为 target_name 的主机的路由。</li><li><code>-j host-list</code> 指定 Tracert 实用程序数据包所采用路径中的路由器接口列表。</li><li><code>-w timeout</code> 等待 timeout 为每次回复所指定的毫秒数。</li><li><code>target_name</code> 目标主机的名称或 IP 地址。</li></ul><p><strong>示例</strong></p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code>tracert www.bajins.com
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><h2 id="网卡" tabindex="-1"><a class="header-anchor" href="#网卡" aria-hidden="true">#</a> 网卡</h2><h3 id="mtu" tabindex="-1"><a class="header-anchor" href="#mtu" aria-hidden="true">#</a> MTU</h3><blockquote><p>MTU经过网卡传输的数据包的最大传输单元,传输设备的MTU值不规范造成传输失败的情况</p></blockquote><p><strong>查看MTU值</strong></p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token function">cat</span> /sys/class/net/eth0/mtu
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p><strong>临时更改MTU值</strong></p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token builtin class-name">echo</span> <span class="token string">&quot;1476&quot;</span> <span class="token operator">&gt;</span> /sys/class/net/eth0/mtu
+<span class="token comment"># 或者</span>
+<span class="token comment"># ifconfig 网口名 mtu 数值</span>
+<span class="token function">ifconfig</span> eth0 mtu <span class="token number">1476</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>永久更改MTU值</strong></p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token function">vi</span> /etc/sysconfig/network-scripts/ifcfg-eth0
+<span class="token comment"># 在DEVICE=eth0下面加入</span>
+<span class="token assign-left variable">MTU</span><span class="token operator">=</span><span class="token number">1476</span>
+<span class="token comment"># 启用IPv6地址的，修改IPv6 mtu的参数为</span>
+<span class="token assign-left variable">IPV6_MTU</span><span class="token operator">=</span><span class="token string">&quot;1280&quot;</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>重启网络接口</strong></p><div class="language-bash line-numbers-mode" data-ext="sh"><pre class="language-bash"><code><span class="token function">service</span> network restart
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div>`,18);function rn(cn,pn){const t=o("router-link"),a=o("ExternalLinkIcon");return c(),p("div",null,[u,n("nav",m,[n("ul",null,[n("li",null,[s(t,{to:"#flag"},{default:l(()=>[e("Flag")]),_:1})]),n("li",null,[s(t,{to:"#查看网络"},{default:l(()=>[e("查看网络")]),_:1})]),n("li",null,[s(t,{to:"#iptables"},{default:l(()=>[e("iptables")]),_:1})]),n("li",null,[s(t,{to:"#ufw"},{default:l(()=>[e("UFW")]),_:1})]),n("li",null,[s(t,{to:"#firewalld"},{default:l(()=>[e("firewalld")]),_:1})]),n("li",null,[s(t,{to:"#路由跟踪"},{default:l(()=>[e("路由跟踪")]),_:1})]),n("li",null,[s(t,{to:"#网卡"},{default:l(()=>[e("网卡")]),_:1}),n("ul",null,[n("li",null,[s(t,{to:"#mtu"},{default:l(()=>[e("MTU")]),_:1})])])])])]),v,n("ul",null,[b,n("li",null,[n("a",h,[e("https://github.com/htop-dev/htop"),s(a)])]),n("li",null,[e("视图监视器 "),n("a",k,[e("https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet"),s(a)])]),n("li",null,[n("a",f,[e("https://github.com/aristocratos"),s(a)])])]),g,n("ul",null,[n("li",null,[e("iptables "),n("a",_,[e("https://www.netfilter.org"),s(a)])])]),w,n("ul",null,[n("li",null,[e("查询IP地理信息 "),n("a",x,[e("https://github.com/zu1k/nali"),s(a)])]),n("li",null,[e("DNS扫描 "),n("a",P,[e("https://github.com/pwnesia/dnstake"),s(a)])]),n("li",null,[n("a",z,[e("https://github.com/zartbot/ztrace"),s(a)])])]),I,n("ul",null,[n("li",null,[n("a",T,[e("https://www.cnblogs.com/xzkzzz/p/7413177.html"),s(a)])]),n("li",null,[n("a",q,[e("https://www.jianshu.com/p/802010d54849"),s(a)])]),n("li",null,[n("a",y,[e("https://cloud.tencent.com/developer/article/1332118"),s(a)])]),n("li",null,[n("a",C,[e("http://winmtr.net/download-winmtr"),s(a)])]),n("li",null,[n("a",U,[e("Netcat详解"),s(a)])]),n("li",null,[n("a",E,[e("http://www.dest-unreach.org/socat"),s(a)])]),n("li",null,[n("a",L,[e("https://github.com/vi/websocat"),s(a)])])]),j,M,n("ul",null,[n("li",null,[n("a",N,[e("tcpping- 禁止了ICMP协议（ping命令）也能用"),s(a)]),n("ul",null,[n("li",null,[n("a",D,[e("https://github.com/deajan/tcpping"),s(a)])])])])]),S,n("ul",null,[n("li",null,[n("a",F,[e("https://elifulkerson.com/projects/"),s(a)])])]),R,n("ul",null,[n("li",null,[n("a",A,[e("https://docs.microsoft.com/zh-cn/sysinternals/downloads/psping"),s(a)])]),n("li",null,[n("a",V,[e("https://code.google.com/archive/p/paping/downloads"),s(a)])])]),W,n("ul",null,[n("li",null,[n("a",B,[e("https://github.com/antirez/hping"),s(a)])])]),O,n("ul",null,[n("li",null,[n("a",$,[e("http://ipcheck.need.sh"),s(a)])]),n("li",null,[n("a",H,[e("https://torch.njs.app"),s(a)])]),n("li",null,[e("瓦工的全球ping工具 "),n("a",K,[e("http://ping.pe"),s(a)])]),n("li",null,[n("a",G,[e("https://www.yougetsignal.com/tools/open-ports"),s(a)])]),n("li",null,[n("a",J,[e("http://tool.chinaz.com/port"),s(a)])]),n("li",null,[n("a",Q,[e("https://www.websitepulse.com/tools/china-firewall-test"),s(a)])]),n("li",null,[n("a",X,[e("https://www.vps234.com/ipchecker"),s(a)])]),n("li",null,[n("a",Y,[e("https://tools.ipip.net/traceroute.php"),s(a)])]),n("li",null,[e("IP范围转换CIDR "),n("a",Z,[e("https://ip2cidr.com"),s(a)])]),n("li",null,[n("a",nn,[e("http://apps.neu.edu.cn/netaggr"),s(a)])]),n("li",null,[n("a",en,[e("无类别域间路由（CIDR）网络地址计算器"),s(a)])]),n("li",null,[n("a",sn,[e("IPv4 / IPv6 CIDR计算器 | RAKKOTOOLS🔧"),s(a)])]),n("li",null,[n("a",an,[e("http://ip.chacuo.net/ipconvert"),s(a)])]),n("li",null,[n("a",tn,[e("https://github.com/3th1nk/cidr"),s(a)])]),n("li",null,[n("a",ln,[e("https://www.oldking.net"),s(a)])])]),on])}const mn=r(d,[["render",rn],["__file","Linux网络防火墙.html.vue"]]);export{mn as default};

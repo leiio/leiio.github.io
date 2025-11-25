@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-02f0230f","path":"/its/web/typescript/","title":"Typescript","lang":"zh-CN","frontmatter":{"title":"Typescript","article":false,"feed":false,"sitemap":false,"seo":false,"head":[]},"headers":[],"git":{},"readingTime":{"minutes":0,"words":1},"filePathRelative":null,"copyright":{"author":"Lei.io"}}');export{e as data};
